@@ -4,8 +4,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
 						http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.cruz.jamal.box</groupId>
+	<parent>
+		<groupId>br.com.cruz.jamal.box</groupId>
+		<artifactId>jamal.box.build</artifactId>
+		<version>1.0</version>
+		<relativePath>../jamal.box.build</relativePath>
+	</parent>
 	<artifactId>jamal.box.service.contract</artifactId>
-	<version>1.0</version>
 	<name>br.com.cruz.jamal.box.service.contract.jar</name>
+	<dependencies>
+		<dependency>
+			<groupId>br.com.cruz.jamal.box</groupId>
+			<artifactId>jamal.box.common</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
 </project>

@@ -4,8 +4,35 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
 						http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.cruz.jamal.box</groupId>
+	<parent>
+		<groupId>br.com.cruz.jamal.box</groupId>
+		<artifactId>jamal.box.build</artifactId>
+		<version>1.0</version>
+		<relativePath>../jamal.box.build</relativePath>
+	</parent>
 	<artifactId>jamal.box.persistence</artifactId>
-	<version>1.0</version>
 	<name>br.com.cruz.jamal.box.persistence.jar</name>
+	<dependencies>
+		<dependency>
+			<groupId>br.com.cruz.jamal.box</groupId>
+			<artifactId>jamal.box.common</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+	</dependencies>
 </project>
