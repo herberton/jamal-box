@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<modules>
-		<module>../jamal.box.common</module>
+		<module>../jamal.common</module>
 		<module>../jamal.box.persistence</module>
 		<module>../jamal.box.service.contract</module>
 		<module>../jamal.box.service</module>
@@ -39,7 +39,7 @@
 			<!-- JAMAL -->
 			<dependency>
 				<groupId>br.com.cruz.jamal</groupId>
-				<artifactId>jamal.box.common</artifactId>
+				<artifactId>jamal.common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

@@ -10,6 +10,6 @@
 		<version>1.0</version>
 		<relativePath>../jamal.build</relativePath>
 	</parent>
-	<artifactId>jamal.box.common</artifactId>
-	<name>br.com.cruz.jamal.box.common.jar</name>
+	<artifactId>jamal.common</artifactId>
+	<name>br.com.cruz.jamal.common.jar</name>
 </project>

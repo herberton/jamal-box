@@ -37,7 +37,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>br.com.cruz.jamal</groupId>
-			<artifactId>jamal.box.common</artifactId>
+			<artifactId>jamal.common</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
