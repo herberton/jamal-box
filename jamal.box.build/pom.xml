@@ -38,22 +38,22 @@
 		<dependencies>
 			<!-- JAMAL -->
 			<dependency>
-				<groupId>br.com.cruz.jamal.box</groupId>
+				<groupId>br.com.cruz.jamal</groupId>
 				<artifactId>jamal.box.common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>br.com.cruz.jamal.box</groupId>
+				<groupId>br.com.cruz.jamal</groupId>
 				<artifactId>jamal.box.persistence</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>br.com.cruz.jamal.box</groupId>
+				<groupId>br.com.cruz.jamal</groupId>
 				<artifactId>jamal.box.service</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>br.com.cruz.jamal.box</groupId>
+				<groupId>br.com.cruz.jamal</groupId>
 				<artifactId>jamal.box.service.contract</artifactId>
 				<version>${project.version}</version>
 			</dependency>
