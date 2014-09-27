@@ -5,10 +5,10 @@
 						http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>br.com.cruz.jamal.box</groupId>
-		<artifactId>jamal.box.build</artifactId>
+		<groupId>br.com.cruz.jamal</groupId>
+		<artifactId>jamal.build</artifactId>
 		<version>1.0</version>
-		<relativePath>../jamal.box.build</relativePath>
+		<relativePath>../jamal.build</relativePath>
 	</parent>
 	<artifactId>jamal.box.common</artifactId>
 	<name>br.com.cruz.jamal.box.common.jar</name>

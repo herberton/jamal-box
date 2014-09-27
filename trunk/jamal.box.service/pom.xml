@@ -5,26 +5,26 @@
 						http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>br.com.cruz.jamal.box</groupId>
-		<artifactId>jamal.box.build</artifactId>
+		<groupId>br.com.cruz.jamal</groupId>
+		<artifactId>jamal.build</artifactId>
 		<version>1.0</version>
-		<relativePath>../jamal.box.build</relativePath>
+		<relativePath>../jamal.build</relativePath>
 	</parent>
 	<artifactId>jamal.box.service</artifactId>
 	<name>br.com.cruz.jamal.box.service.jar</name>
 	<dependencies>
 		<dependency>
-			<groupId>br.com.cruz.jamal.box</groupId>
+			<groupId>br.com.cruz.jamal</groupId>
 			<artifactId>jamal.box.common</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>br.com.cruz.jamal.box</groupId>
+			<groupId>br.com.cruz.jamal</groupId>
 			<artifactId>jamal.box.persistence</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>br.com.cruz.jamal.box</groupId>
+			<groupId>br.com.cruz.jamal</groupId>
 			<artifactId>jamal.box.service.contract</artifactId>
 			<optional>true</optional>
 		</dependency>
