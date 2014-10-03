@@ -3,14 +3,30 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
 						http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+	<modelVersion>${model.version}</modelVersion>
 	<groupId>br.com.cruz.jamal</groupId>
 	<artifactId>jamal.build</artifactId>
-	<version>1.0</version>
+	<version>${jamal.version}</version>
 	<packaging>pom</packaging>
 	<name>br.com.cruz.jamal.build.pom</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- version -->
+		<jamal.version>1.0</jamal.version>
+		<model.version>4.0.0</model.version>
+		<java.version>1.8</java.version>
+		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+		<maven.war.plugin.version>2.4</maven.war.plugin.version>
+		<javax.validation.version>1.1.0.Final</javax.validation.version>
+		<junit.version>4.11</junit.version>
+		<commons.lang.version>3.3.2</commons.lang.version>
+		<commons.dbcp.version>1.4</commons.dbcp.version>
+		<slf4j.version>1.5.8</slf4j.version>
+		<lombok.version>1.14.8</lombok.version>
+		<gson.version>2.3</gson.version>
+		<spring.version>4.1.0.RELEASE</spring.version>
+		<hibernate.version>4.3.6.Final</hibernate.version>
+		<postgresql.version>9.3-1102-jdbc41</postgresql.version>
 	</properties>
 	<modules>
 		<module>../jamal.common</module>
@@ -26,10 +42,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -61,80 +77,80 @@
 			<dependency>
 				<groupId>javax.validation</groupId>
 				<artifactId>validation-api</artifactId>
-				<version>1.1.0.Final</version>
+				<version>${javax.validation.version}</version>
 			</dependency>
 			<!-- JUNIT -->
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.11</version>
+				<version>${junit.version}</version>
 			</dependency>
 			<!-- COMMONS -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 			 	<artifactId>commons-lang3</artifactId>
-			 	<version>3.3.2</version>
+			 	<version>${commons.lang.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-dbcp</groupId>
 				<artifactId>commons-dbcp</artifactId>
-				<version>1.4</version>
+				<version>${commons.dbcp.version}</version>
 			</dependency>
 			<!-- SLF4J -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.5.8</version>
+				<version>${slf4j.version}</version>
 			</dependency>
 			<!-- LOMBOK -->
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.14.8</version>
+				<version>${lombok.version}</version>
 			</dependency>
 			<!-- GSON -->
 			<dependency>
 				<groupId>com.google.code.gson</groupId>
 				<artifactId>gson</artifactId>
-				<version>2.3</version>
+				<version>${gson.version}</version>
 			</dependency>
 			<!-- SPRING FRAMEWORK -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-test</artifactId>
-				<version>4.1.0.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-orm</artifactId>
-				<version>4.1.0.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
-				<version>4.1.0.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
-				<version>4.1.0.RELEASE</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<!-- HIBERNATE -->
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>4.3.6.Final</version>
+				<version>${hibernate.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>4.3.6.Final</version>
+				<version>${hibernate.version}</version>
 			</dependency>
 			<!-- POSTGRE SQL -->
 			<dependency>
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
-				<version>9.3-1102-jdbc41</version>
+				<version>${postgresql.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

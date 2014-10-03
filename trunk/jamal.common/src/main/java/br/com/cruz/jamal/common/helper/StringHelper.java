@@ -1,7 +1,7 @@
 package br.com.cruz.jamal.common.helper;
 
 
-public class StringHelper extends JamalHelper {
+public final class StringHelper extends JamalHelper {
 
 	private static final long serialVersionUID = 3895057146334873623L;
 

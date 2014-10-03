@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import lombok.NoArgsConstructor;
 import br.com.cruz.jamal.common.exception.JamalException;
 import br.com.cruz.jamal.common.exception.UnableToCompleteOperationException;
 import br.com.cruz.jamal.common.helper.ReflectionHelper;
 
-
+@NoArgsConstructor
 public abstract class JamalTO<T extends JamalTO<T>> implements Serializable {
 
 	private static final long serialVersionUID = 2161281162506571180L;
