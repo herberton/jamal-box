@@ -10,33 +10,11 @@ import javax.validation.constraints.NotNull;
 
 import br.com.cruz.jamal.common.exception.JamalException;
 import br.com.cruz.jamal.common.exception.UnableToCompleteOperationException;
-import br.com.cruz.jamal.common.to.Teste1;
-import br.com.cruz.jamal.common.to.Teste2;
 
-public class ReflectionHelper extends JamalHelper {
+public final class ReflectionHelper extends JamalHelper {
 
 	
 	private static final long serialVersionUID = 4184413189222960213L;
-	
-	public static void main(String[] args) {
-		try {
-			
-			Teste1 teste = new Teste2();
-			
-			System.out.println(teste.getPublicFieldList());
-			
-			teste.set("t1", "teste1");
-			
-			teste.set("t5", "teste5");
-			
-			System.out.println(teste.get("t1", String.class));
-			
-			System.out.println(teste.get("t5", String.class));
-			
-		} catch (JamalException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	
 	// get

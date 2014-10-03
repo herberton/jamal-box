@@ -2,7 +2,7 @@ package br.com.cruz.jamal.common.helper;
 
 import java.util.Collection;
 
-public class CollectionHelper extends JamalHelper {
+public final class CollectionHelper extends JamalHelper {
 
 	private static final long serialVersionUID = 5564514635549011361L;
 
