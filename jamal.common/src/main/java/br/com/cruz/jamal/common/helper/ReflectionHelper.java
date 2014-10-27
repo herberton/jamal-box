@@ -3,10 +3,7 @@ package br.com.cruz.jamal.common.helper;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import javax.validation.constraints.NotNull;
 
 import br.com.cruz.jamal.common.exception.JamalException;
 import br.com.cruz.jamal.common.exception.UnableToCompleteOperationException;
@@ -16,12 +13,15 @@ public final class ReflectionHelper extends JamalHelper {
 	
 	private static final long serialVersionUID = 4184413189222960213L;
 	
-	
 	// get
 	
-	public static final <K, V> V get(@NotNull K object, @NotNull String fieldName, @NotNull Class<V> fieldType) throws JamalException {
+	public static final <K, V> V get(K object, String fieldName, Class<V> fieldType) throws JamalException {
 		
 		try {
+			
+			ValidationHelper.notNull(object);
+			ValidationHelper.notNull(fieldName);
+			ValidationHelper.notNull(fieldType);
 			
 			Field field = ReflectionHelper.getPublicField(object.getClass(), fieldName);
 			
@@ -38,10 +38,16 @@ public final class ReflectionHelper extends JamalHelper {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static final <K, V> V get(@NotNull K object, @NotNull Field field, @NotNull Class<V> fieldType) throws JamalException {
+	public static final <K, V> V get(K object, Field field, Class<V> fieldType) throws JamalException {
 		
 		try {
+			
+			ValidationHelper.notNull(object);
+			ValidationHelper.notNull(field);
+			ValidationHelper.notNull(fieldType);
+			
 			return (V) ReflectionHelper.executeMethod(object, ReflectionHelper.getGetterMethod(object.getClass(), field));
+			
 		} catch (Exception e) {
 			throw new UnableToCompleteOperationException("get", e);
 		}
@@ -51,9 +57,12 @@ public final class ReflectionHelper extends JamalHelper {
 	
 	// set
 	
-	public static final <K, V> void set(@NotNull K object, @NotNull String fieldName, V fieldValue) throws JamalException {
+	public static final <K, V> void set(K object, String fieldName, V fieldValue) throws JamalException {
 		
 		try {
+			
+			ValidationHelper.notNull(object);
+			ValidationHelper.notNull(fieldName);
 			
 			Field field = ReflectionHelper.getPublicField(object.getClass(), fieldName);
 			
@@ -69,10 +78,16 @@ public final class ReflectionHelper extends JamalHelper {
 		
 	}
 	
-	public static final <K, V> void set(@NotNull K object, @NotNull Field field, @NotNull V fieldValue) throws JamalException {
+	public static final <K, V> void set(K object, Field field, V fieldValue) throws JamalException {
 		
 		try {
+			
+			ValidationHelper.notNull(object);
+			ValidationHelper.notNull(field);
+			ValidationHelper.notNull(fieldValue);
+			
 			ReflectionHelper.executeMethod(object, ReflectionHelper.getSetterMethod(object.getClass(), field), fieldValue);
+			
 		} catch (Exception e) {
 			throw new UnableToCompleteOperationException("set", e);
 		}
@@ -82,10 +97,15 @@ public final class ReflectionHelper extends JamalHelper {
 	
 	// executeMethod
 	
-	public static final Object executeMethod(@NotNull Object object, @NotNull Method method, Object... parameterArgumentArray) throws JamalException {
+	public static final Object executeMethod(Object object, Method method, Object... parameterArgumentArray) throws JamalException {
 		
 		try {
+			
+			ValidationHelper.notNull(object);
+			ValidationHelper.notNull(method);
+			
 			return method.invoke(object, parameterArgumentArray);
+			
 		} catch (Exception e) {
 			throw new UnableToCompleteOperationException("executeMethod", e);
 		}
@@ -95,9 +115,23 @@ public final class ReflectionHelper extends JamalHelper {
 	
 	// getPublicFieldList
 	
-	public static final List<Field> getPublicFieldList(@NotNull Class<?> clazz) throws JamalException {
+	public static final List<Field> getPublicFieldList(Class<?> clazz) throws JamalException {
 		
 		try {
+			
+			return ReflectionHelper.getPublicFieldList(clazz, null);
+			
+		} catch (Exception e) {
+			throw new UnableToCompleteOperationException("getPublicFieldList", e);
+		}
+		
+	}
+	
+	private static final List<Field> getPublicFieldList(Class<?> clazz, String fieldName) throws JamalException {
+		
+		try {
+			
+			ValidationHelper.notNull(clazz);
 			
 			List<Field> publicFieldList = new ArrayList<Field>();
 			
@@ -107,7 +141,15 @@ public final class ReflectionHelper extends JamalHelper {
 					
 					if (ReflectionHelper.isPublicField(clazz, field)) {
 						
-						publicFieldList.add(field);
+						if (StringHelper.isNullOrEmpty(fieldName)) {
+							publicFieldList.add(field);
+							continue;
+						}
+						
+						if (field.getName().equals(fieldName)) {
+							publicFieldList.add(field);
+							return publicFieldList;
+						}
 						
 					}
 					
@@ -128,28 +170,36 @@ public final class ReflectionHelper extends JamalHelper {
 	
 	// getPublicField
 	
-	public static final Field getPublicField(@NotNull Class<?> clazz, @NotNull String fieldName) throws JamalException {
-		 try {
+	public static final Field getPublicField(Class<?> clazz, String fieldName) throws JamalException {
+		 
+		try {
 			
-			for (Field publicField : ReflectionHelper.getPublicFieldList(clazz)) {
-				if (publicField.getName().equals(fieldName)) {
-					return publicField;
-				}
+			ValidationHelper.notNull(clazz);
+			ValidationHelper.notNull(fieldName);
+			
+			List<Field> publicFieldList = ReflectionHelper.getPublicFieldList(clazz, fieldName);
+			
+			if (publicFieldList == null) {
+				return null;
 			}
-			 
+			
+			return publicFieldList.get(0);
+			
 		} catch (Exception e) {
 			throw new UnableToCompleteOperationException("getPublicField", e);
 		}
-			
-		return null;
+		
 	}
 	
 	
 	// isPublicField
 	
-	public static final <T> boolean isPublicField(@NotNull Class<T> clazz, @NotNull Field field) throws JamalException {
+	public static final <T> boolean isPublicField(Class<T> clazz, Field field) throws JamalException {
 
 		try {
+			
+			ValidationHelper.notNull(clazz);
+			ValidationHelper.notNull(field);
 			
 			return ReflectionHelper.getGetterMethod(clazz, field) != null;
 			
@@ -161,9 +211,11 @@ public final class ReflectionHelper extends JamalHelper {
 	
 	// getGetterMethodName
 	
-	public static final String getGetterMethodName(@NotNull Field field) throws JamalException {
+	public static final String getGetterMethodName(Field field) throws JamalException {
 
 		try {
+			
+			ValidationHelper.notNull(field);
 			
 			return ReflectionHelper.getGetterMethodName(field.getName());
 			
@@ -172,9 +224,11 @@ public final class ReflectionHelper extends JamalHelper {
 		}
 	}
 	
-	public static final String getGetterMethodName(@NotNull String fieldName) throws JamalException {
+	public static final String getGetterMethodName(String fieldName) throws JamalException {
 
 		try {
+			
+			ValidationHelper.notNull(fieldName);
 			
 			if (StringHelper.isNullOrEmpty(fieldName)) {
 				return null;
@@ -190,9 +244,12 @@ public final class ReflectionHelper extends JamalHelper {
 	
 	// getGetterMethod
 	
-	public static final <T> Method getGetterMethod(@NotNull Class<T> clazz, @NotNull Field field) throws JamalException {
+	public static final <T> Method getGetterMethod(Class<T> clazz, Field field) throws JamalException {
 
 		try {
+			
+			ValidationHelper.notNull(clazz);
+			ValidationHelper.notNull(field);
 			
 			return ReflectionHelper.findMethod(clazz, ReflectionHelper.getGetterMethodName(field));
 			
@@ -201,9 +258,12 @@ public final class ReflectionHelper extends JamalHelper {
 		}
 	}
 	
-	public static final <T> Method getGetterMethod(@NotNull Class<T> clazz, @NotNull String fieldName) throws JamalException {
+	public static final <T> Method getGetterMethod(Class<T> clazz, String fieldName) throws JamalException {
 
 		try {
+			
+			ValidationHelper.notNull(clazz);
+			ValidationHelper.notNull(fieldName);
 			
 			return ReflectionHelper.findMethod(clazz, ReflectionHelper.getGetterMethodName(fieldName));
 			
@@ -215,9 +275,11 @@ public final class ReflectionHelper extends JamalHelper {
 	
 	// getSetterMethodName
 	
-	public static final String getSetterMethodName(@NotNull Field field) throws JamalException {
+	public static final String getSetterMethodName(Field field) throws JamalException {
 
 		try {
+			
+			ValidationHelper.notNull(field);
 			
 			return ReflectionHelper.getSetterMethodName(field.getName());
 			
@@ -226,9 +288,11 @@ public final class ReflectionHelper extends JamalHelper {
 		}
 	}
 	
-	public static final String getSetterMethodName(@NotNull String fieldName) throws JamalException {
+	public static final String getSetterMethodName(String fieldName) throws JamalException {
 
 		try {
+			
+			ValidationHelper.notNull(fieldName);
 			
 			if (StringHelper.isNullOrEmpty(fieldName)) {
 				return null;
@@ -244,78 +308,122 @@ public final class ReflectionHelper extends JamalHelper {
 	
 	// getSetterMethod
 	
-	public static final <T> Method getSetterMethod(@NotNull Class<T> clazz, @NotNull Field field) throws JamalException {
+	public static final <T> Method getSetterMethod(Class<T> clazz, Field field) throws JamalException {
 
 		try {
+			
+			ValidationHelper.notNull(clazz);
+			ValidationHelper.notNull(field);
 			
 			return ReflectionHelper.findMethod(clazz, ReflectionHelper.getSetterMethodName(field));
 			
 		} catch (Exception e) {
 			throw new UnableToCompleteOperationException("getSetterMethod", e);
 		}
+		
 	}
 	
-	public static final <T> Method getSetterMethod(@NotNull Class<T> clazz, @NotNull String fieldName) throws JamalException {
+	public static final <T> Method getSetterMethod(Class<T> clazz, String fieldName) throws JamalException {
 
 		try {
+			
+			ValidationHelper.notNull(clazz);
+			ValidationHelper.notNull(fieldName);
 			
 			return ReflectionHelper.findMethod(clazz, ReflectionHelper.getSetterMethodName(fieldName));
 			
 		} catch (Exception e) {
 			throw new UnableToCompleteOperationException("getSetterMethod", e);
 		}
+		
 	}
 	
 	
 	// findMethod
 	
-	public static final <T> Method findMethod(@NotNull Class<T> clazz, @NotNull String methodName, Class<?>... parameterTypeArray) throws JamalException {
+	public static final <T> Method findMethod(Class<T> clazz, String methodName, Class<?>... parameterTypeArray) throws JamalException {
 		
-		List<Method> foundMethodList = ReflectionHelper.findMethodList(clazz, methodName, parameterTypeArray);
-		
-		if (CollectionHelper.isNullOrEmpty(foundMethodList)) {
-			return null;
+		try {
+			
+			ValidationHelper.notNull(clazz);
+			ValidationHelper.notNull(methodName);
+			
+			List<Method> foundMethodList = ReflectionHelper.findMethodList(clazz, 1, methodName, parameterTypeArray);
+			
+			if (CollectionHelper.isNullOrEmpty(foundMethodList)) {
+				return null;
+			}
+			
+			return foundMethodList.get(0);
+			
+		} catch (Exception e) {
+			throw new UnableToCompleteOperationException("findMethod", e);
 		}
 		
-		return foundMethodList.get(0);
 	}
 
 
 	// findMethodList
 	
-	public static final <T> List<Method> findMethodList(@NotNull Class<T> clazz, @NotNull String methodName, Class<?>... parameterTypeArray) throws JamalException {
-		
-		List<Method> foundMethodList = new ArrayList<Method>();
-		
-		boolean isSearchByParameterType = !CollectionHelper.isNullOrEmpty(parameterTypeArray);
+	public static final <T> List<Method> findMethodList(Class<T> clazz, String methodName, Class<?>... parameterTypeArray) throws JamalException {
 		
 		try {
 			
+			ValidationHelper.notNull(clazz);
+			ValidationHelper.notNull(methodName);
+		
+			return ReflectionHelper.findMethodList(clazz, -1, methodName, parameterTypeArray);
+		
+		} catch (Exception e) {
+			throw new UnableToCompleteOperationException("findMethodList", e);
+		}
+		
+	}
+	
+	
+	private static final <T> List<Method> findMethodList(Class<T> clazz, int resultSize, String methodName, Class<?>... parameterTypeArray) throws JamalException {
+		
+		List<Method> foundMethodList = new ArrayList<Method>();
+		
+		try {
+			
+			ValidationHelper.notNull(clazz);
+			ValidationHelper.notNull(methodName);
+			
+			boolean isSearchByParameterType = !CollectionHelper.isNullOrEmpty(parameterTypeArray);
+			
 			for (Method method : clazz.getMethods()) {
-				if (methodName.equals(method.getName())) {
-					foundMethodList.add(method);
-				}
-			}
-			
-			
-			if (isSearchByParameterType) {
 				
-				Iterator<Method> iterator = foundMethodList.iterator();
-				while (iterator.hasNext()) {
+				boolean isFindMethod = false;
+				
+				if (resultSize < 0) {
+					isFindMethod = true;
+				} else {
+					isFindMethod = foundMethodList.size() < resultSize;
+				}
+				
+				if (!isFindMethod) {
+					return foundMethodList;
+				}
+				
+				if (methodName.equals(method.getName())) {
 					
-					Method method = iterator.next();
+					if (!isSearchByParameterType) {
+						foundMethodList.add(method);
+						continue;
+					}
 					
 					if (method.getParameterTypes().length != parameterTypeArray.length) {
-						iterator.remove();
 						continue;
 					}
 					
 					for (int i = 0; i < method.getParameterTypes().length; i++) {
 						if (parameterTypeArray[i] != method.getParameterTypes()[i]) {
-							iterator.remove();
 							continue;
 						}
 					}
+					
+					foundMethodList.add(method);
 					
 				}
 				

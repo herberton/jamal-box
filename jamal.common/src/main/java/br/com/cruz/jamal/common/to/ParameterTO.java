@@ -1,7 +1,5 @@
 package br.com.cruz.jamal.common.to;
 
-import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,9 +34,9 @@ public class ParameterTO<T> extends JamalTO<ParameterTO<T>> {
 	
 	//CONSTRUCTOR
 	
-	public ParameterTO(@NotNull String name) {
+	public ParameterTO(String name) {
 		super();
-		this.setName(name);
+			this.setName(name);
 	}
 	
 	
