@@ -9,12 +9,12 @@ import javax.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 import br.com.cruz.jamal.common.enumeration.Restriction;
 import br.com.cruz.jamal.common.exception.JamalException;
 import br.com.cruz.jamal.common.exception.UnableToCompleteOperationException;
 import br.com.cruz.jamal.common.helper.MapHelper;
+import br.com.cruz.jamal.common.helper.ValidationHelper;
 
 @NoArgsConstructor
 public class ParameterMapTO extends JamalTO<ParameterMapTO> {
@@ -52,28 +52,61 @@ public class ParameterMapTO extends JamalTO<ParameterMapTO> {
 	
 	
 	@SuppressWarnings("unchecked")
-	public <T> void addParameter(@NotNull String parameterName, @NotNull Restriction restriction, @NonNull T parameterValue) throws JamalException{
-		this.addParameter(new ParameterTO<T>((Class<T>)parameterValue.getClass(), parameterName, parameterValue), restriction);
-	}
-	
-	public void addParameter(@NotNull String parameterName, @NotNull Restriction restriction) throws JamalException {
-		this.addParameter(new ParameterTO<>(parameterName), restriction);
-	}
-	
-	private void addParameter(@NotNull ParameterTO<?> parameter, @NotNull Restriction restriction) throws JamalException {
+	public <T> void addParameter(String parameterName, Restriction restriction, T parameterValue) throws JamalException{
+		
 		try {
-			this.getMap().put(parameter, restriction);
+		
+			ValidationHelper.notNull(parameterName);
+			ValidationHelper.notNull(restriction);
+			ValidationHelper.notNull(parameterValue);
+			
+			this.addParameter(new ParameterTO<T>((Class<T>)parameterValue.getClass(), parameterName, parameterValue), restriction);
+		
 		} catch (Exception e) {
 			throw new UnableToCompleteOperationException("addParameter", e);
 		}
+		
+	}
+	
+	public void addParameter(String parameterName, Restriction restriction) throws JamalException {
+		
+		try {
+			
+			ValidationHelper.notNull(parameterName);
+			ValidationHelper.notNull(restriction);
+			
+			this.addParameter(new ParameterTO<>(parameterName), restriction);
+			
+		} catch (Exception e) {
+			throw new UnableToCompleteOperationException("addParameter", e);
+		}
+		
+	}
+	
+	private void addParameter(@NotNull ParameterTO<?> parameter, @NotNull Restriction restriction) throws JamalException {
+		
+		try {
+			
+			ValidationHelper.notNull(parameter);
+			ValidationHelper.notNull(restriction);
+			
+			this.getMap().put(parameter, restriction);
+			
+		} catch (Exception e) {
+			throw new UnableToCompleteOperationException("addParameter", e);
+		}
+		
 	}
 	
 	
 	@SuppressWarnings("unchecked")
-	public <T> T getParameter(@NotNull String parameterName, Class<T> clazz) throws JamalException {
+	public <T> T getParameter(String parameterName, Class<T> clazz) throws JamalException {
 		
 		try {
 		
+			ValidationHelper.notNull(parameterName);
+			ValidationHelper.notNull(clazz);
+			
 			if (parameterName.isEmpty()) {
 				return null;
 			}
@@ -95,10 +128,12 @@ public class ParameterMapTO extends JamalTO<ParameterMapTO> {
 	}
 	
 	
-	public Restriction getRestriction(@NotNull String parameterName) throws JamalException {
+	public Restriction getRestriction(String parameterName) throws JamalException {
 		
 		try {
 		
+			ValidationHelper.notNull(parameterName);
+			
 			if (parameterName.isEmpty()) {
 				return null;
 			}

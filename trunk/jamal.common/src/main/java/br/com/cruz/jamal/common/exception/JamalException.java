@@ -1,14 +1,13 @@
 package br.com.cruz.jamal.common.exception;
 
+import lombok.NoArgsConstructor;
 
+
+@NoArgsConstructor
 public class JamalException extends Exception {
 
 	private static final long serialVersionUID = 3795459060108965263L;
 
-	
-	public JamalException() {
-        super();
-    }
 	
 	public JamalException(String message) {
         super(message);
